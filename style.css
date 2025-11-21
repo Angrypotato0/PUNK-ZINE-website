@@ -1,0 +1,15 @@
+body{
+    background-color: chartreuse;
+
+}
+
+a{
+    color: brown;
+    border: green 2px dashed;
+    font-size: 60px;
+}
+
+div figure img{
+    border: red 2px solid;
+    border-radius: 20px;
+}
