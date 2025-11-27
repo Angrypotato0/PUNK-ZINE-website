@@ -28,10 +28,13 @@ div figure img{
 }
 
 button{
-  background-color: rgb(255, 242, 0);
+  background-color: rgb(255, 0, 0);
   border: none;
+  margin-left: 500px;
   color: rgb(0, 0, 0);
-  padding: 15px 32px;
+  padding: 15px 15px;
+  width: 15px;
+  overflow: hidden;
   text-align: center;
   text-decoration: none;
   display: inline-block;
@@ -39,9 +42,13 @@ button{
   cursor: pointer;  
 }
 p{
+    position: fixed;
     border: 1px solid black;
-    margin: 0;
-    margin-left: auto;
-    margin-right: auto;
-    
+}
+ul{
+    border: 1px solid black;
+    width: 30vw;
+    margin: auto;
+    padding:auto;
+
 }

@@ -1,28 +1,71 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 
-  <meta charset="UTF-8" />
-  <title>Donnerstag Kurs</title>
-  <style> 
-    body{
-         font-family: cursive;
+    <meta charset="UTF-8" />
+    <title>Donnerstag Kurs</title>
+    <style>
+        body {
+            font-family: Arial;
         }
 
- </style>
- <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        #trigger {
+        }
+
+        .triangle {
+            width: 0;
+            height: 0;
+            border-left: 12px solid transparent;
+            border-right: 12px solid transparent;
+            border-bottom: 20px solid #ff0066;
+
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+
+            opacity: 0;
+            
+            transition: opacity 0.3s ease;
+        }
+
+        #trigger:checked {
+            opacity: 1;
+            animation: myMove 5s infinite linear;
+        }
+
+        @keyframes myMove {
+            0% {transform: translate(10px, 10px);}
+
+            20% {transform: translate(70px, 15px);}
+
+            40% {transform: translate(30px, 70px);}
+
+            60% {transform: translate(80px, 50px);}
+
+            80% {transform: translate(20px, 80px);}
+
+            100% {transform: translate(10px, 10px);}
+        }
+    </style>
+    <link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
+
 <body>
-    <h1 style="font-size: 100px;">Why make it easy <br> when you can make it <i>complicated ?</i></h1>
-    <div style="width: 20vw;"> 
-        <p style="color: green;"> Why <b>make</b> it <i>complicated</i> when <del>you</del> <mark>can</mark> make <u>a</u> banana?</p>
+    <h1 style="font-size: 50px;">Why make it easy <br> when you can make it <i>complicated ?</i></h1>
+    <div style="width: 20vw;">
+        <p style="color: green;"> Why <b>make</b> it <i>complicated</i> when <del>you</del> <mark>can</mark> make
+            <u>a</u> banana?</p>
         <figure>
             <img src="https://www.freshpoint.com/wp-content/uploads/2019/04/freshpoint-produce-101-banana-peel.jpg", width="400%">
             <figcaption>banana!</figcaption>
         </figure>
 
-        <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Banana">CLAIM YOUR FREE BANANA</a>
-
+        <a target="_blank" rel="noopener noreferrer" href="https://en.wikipedia.org/wiki/Banana">CLAIM YOUR FREE
+            BANANA</a>
+        <br>
+        <br>
         <ul style="color: blue; ">
             <li>yellow</li>
             <li>yellow</li>
@@ -37,21 +80,27 @@
             <li>easy!</li>
         </ul>
         <br>
-        <button> Click Clack Clock</button>
+        <button> BUTTON</button>
         <br>
         <details>
-  
+
             <summary><b>CLAIM YOUR FREE DOG TODAY</b></summary>
             thats not very responsible dogs while similar are not bananas and should not be treated as such<br>
-            be responsible ansd go to a dog shelter will you
+            be responsible and go to a dog shelter will you
         </details>
     </div>
-    <figure>
-        <img src="images-5.jpeg">
-        <figcaption>if bananas would be animals they<br>would be golden retrievers</figcaption>
+    <label>
+        <input type="checkbox" id="trigger">
+        Start Animation
+    </label>
+<br>
+
+    <img src="images-5.jpeg">
+    <figcaption>if bananas would be animals they<br>would be golden retrievers</figcaption>
     </figure>
     <input type="checkbox">
-<label>check if you agree</label>
+    <label>check if you agree</label>
 
 </body>
+
 </html>
