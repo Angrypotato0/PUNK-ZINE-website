@@ -1,15 +1,47 @@
 body{
     background-color: chartreuse;
+    border: 1px solid black;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
 
+}
+h1{
+    border: 1px solid black;
+    margin-left: 0 auto;
+    margin-right: 0 auto;
+    padding: 10 px;
 }
 
 a{
+    background: yellow;
     color: brown;
-    border: green 2px dashed;
-    font-size: 60px;
+    border: green 2px solid;
+    font-size: 1vw;
+
 }
 
 div figure img{
     border: red 2px solid;
     border-radius: 20px;
+    display: block;
+}
+
+button{
+  background-color: rgb(255, 242, 0);
+  border: none;
+  color: rgb(0, 0, 0);
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  cursor: pointer;  
+}
+p{
+    border: 1px solid black;
+    margin: 0;
+    margin-left: auto;
+    margin-right: auto;
+    
 }
