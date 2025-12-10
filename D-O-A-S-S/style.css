@@ -1,22 +1,62 @@
+.entry {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+
+  opacity: 0;
+  pointer-events: none;
+    transition: opacity 0.6s cubic-bezier(.4,0,.2,1), 
+              transform 0.6s cubic-bezier(.4,0,.2,1);
+  transform: translateY(10px); 
+}
+
+/* Hover Mapping */
+body:has(a[data-target="entry1"]:hover) #entry1,
+body:has(a[data-target="entry2"]:hover) #entry2,
+body:has(a[data-target="entry3"]:hover) #entry3,
+body:has(a[data-target="entry4"]:hover) #entry4,
+body:has(a[data-target="entry5"]:hover) #entry5,
+body:has(a[data-target="entry6"]:hover) #entry6,
+body:has(a[data-target="entry7"]:hover) #entry7 {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+/*change if added entry*/
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
+.major-mono-display-regular {
+  font-family: "Major Mono Display", monospace;
+  font-weight: 400;
+  font-style: normal;
+}
+
+main {
+  position: relative;
+  height: auto; 
+  padding-top: 2rem;
+}
+
 body {
-    text-align: center;
+    
     background-color: #f5f5f5;
     color: #1a1a1a;
-    font-family: 'Courier New', monospace;
+    font-family: "Major Mono Display", monospace;
     line-height: 1.6;
     padding: 20px;
+    padding-bottom: 60px;
 }
 
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     margin: 1.5em 0 0.5em 0;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
 }
 
 h1 {
@@ -32,9 +72,34 @@ h2 {
 }
 
 p {
-    margin: 1em 0;
-    font-size: 1em;
+    font-family: "Special Elite", system-ui;
+    text-align: center;
+    margin: 1em auto;
+    font-size: 1.4em;
+    max-width: 1000px;        
+    padding: 0 20px; 
 }
+
+.topnav {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.topnav a {
+  cursor: pointer;
+  text-decoration: none;
+  color: #1a1a1a;
+  padding: 8px 12px;
+  border-bottom: 2px solid transparent;
+  transition: border-color 0.3s ease;
+}
+
+.topnav a:hover {
+  border-bottom: 2px solid #1a1a1a;
+}
+
 
 a {
     color: #1a1a1a;
@@ -78,5 +143,16 @@ button, input[type="button"], input[type="submit"] {
 button:hover, input[type="button"]:hover, input[type="submit"]:hover {
     background-color: #f5f5f5;
     color: #1a1a1a;
+}
+
+footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  padding: 10px 0;
+  background: rgba(245, 245, 245, 0.0);
+  border-top: 1px solid #1a1a1a;
 }
 
