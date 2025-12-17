@@ -6,13 +6,41 @@
 
   opacity: 0;
   pointer-events: none;
-    transition: opacity 0.6s cubic-bezier(.4,0,.2,1), 
-              transform 0.6s cubic-bezier(.4,0,.2,1);
-  transform: translateY(10px); 
+  transform: none; 
 }
 
+.typewriter h2 {
+  opacity: 0;
+  transition:opacity 0.6s cubic-bezier(.4,0,.2,1),
+  transform 0.6s cubic-bezier(.4,0,.2,1);
+   transform: translateY(10px);
+}
+.entry.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.entry.active h2 {
+  opacity: 1;
+}
+
+#day1:checked ~ main #entry1 .typewriter h2,
+#day2:checked ~ main #entry2 .typewriter h2,
+#day3:checked ~ main #entry3 .typewriter h2,
+#day4:checked ~ main #entry4 .typewriter h2,
+#day5:checked ~ main #entry5 .typewriter h2,
+#day6:checked ~ main #entry6 .typewriter h2,
+#day7:checked ~ main #entry7 .typewriter h2 {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0);
+}
+
+
+
+
 /* Hover Mapping */
-body:has(a[data-target="entry1"]:hover) #entry1,
+/*body:has(a[data-target="entry1"]:hover) #entry1,
 body:has(a[data-target="entry2"]:hover) #entry2,
 body:has(a[data-target="entry3"]:hover) #entry3,
 body:has(a[data-target="entry4"]:hover) #entry4,
@@ -56,7 +84,12 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
     margin: 1.5em 0 0.5em 0;
-    letter-spacing: 1px;
+    letter-spacing: 0.5px;
+}
+
+h5{
+  max-width: 740px;
+  font-size: 1em; 
 }
 
 h1 {
@@ -73,9 +106,9 @@ h2 {
 
 p {
     font-family: "Special Elite", system-ui;
-    text-align: center;
+    text-align: auto;
     margin: 1em auto;
-    font-size: 1.4em;
+    font-size: 1.25em;
     max-width: 1000px;        
     padding: 0 20px; 
 }
@@ -145,13 +178,59 @@ button:hover, input[type="button"]:hover, input[type="submit"]:hover {
     color: #1a1a1a;
 }
 
-footer {
+
+
+
+
+.prev::before { content: "←"; cursor: pointer; }
+.next::before { content: "→"; cursor: pointer; }
+
+
+
+
+input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  margin: 0;
+  padding: 0;
+}
+
+
+
+
+.footer-nav {
   position: fixed;
   bottom: 0;
-  left: 0;
+  right: 20px;
+  padding: 0 0;
+  font-family: "Major Mono Display", monospace;
+  font-size: 1em;
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  backdrop-filter: blur(5px);
+  background: rgba(245, 245, 245, 0.0);
+  border-radius: 10px;
+}
+
+.arrow-left,
+.arrow-right {
+  cursor: pointer;
+  user-select: none;
+}
+
+
+footer {
+  position: fixed;
+  display: flex;
+  bottom: 10px;
+  left: 10px;
   width: 100%;
-  text-align: center;
-  padding: 10px 0;
+  text-align: left;
+  padding: 0 0;
+  backdrop-filter: blur(5px);
   background: rgba(245, 245, 245, 0.0);
   border-top: 1px solid #1a1a1a;
 }

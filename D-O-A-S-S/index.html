@@ -14,17 +14,11 @@
     <script src="script.js" defer></script>
   </head>
   <body>
+
     
     <header>
       <h1>Diaries of a Sober Stoner</h1>
-    <p>
-    In my 20s I always used to say “I will quit when I’m 30”. Now, I’m 30 and still as much of a smoker as in my younger years.<br><br>
-    Since I got used to smoking every day, I can feel how my body is slowly paying the price for it.<br><br>
-    My nose is permanently stuffed, I have constant sneeze attacks that go on for at least 5 minutes, and when I catch a cold it knocks my lungs out for a week.<br><br>
-    It’s time for a change.<br><br>
-    I will write my thoughts and feelings on this website as a reminder to keep the work going and to have something I can hold on to.
-    <h1></h1>  
-  </p>
+
         <nav class="topnav">
           <a data-target="entry1">DAY #1</a>
           <a data-target="entry2">DAY #2</a>
@@ -35,11 +29,18 @@
           <a data-target="entry7">DAY #2</a>
         </nav>
     </header>
-
+    <input type="radio" name="entry" id="day1" checked>
+    <input type="radio" name="entry" id="day2">
+    <input type="radio" name="entry" id="day3">
+    <input type="radio" name="entry" id="day4">
+    <input type="radio" name="entry" id="day5">
+    <input type="radio" name="entry" id="day6">
+    <input type="radio" name="entry" id="day7">
 
 
     <main>
         <section class="entry" id="entry1">
+          <div class="typewriter">
           <h2>DAY #1:</h2>
           <p>
             I feel great today :D<br>
@@ -48,9 +49,11 @@
             they are not... ahem... very “stoner friendly”<br><br>
             Maybe this whole diary idea is a bit much...
           </p>
+        </div>
         </section>
       
         <section class="entry" id="entry2">
+          <div class="typewriter">
           <h2>DAY #2:</h2>
           <p>
             I still feel GREAT!<br><br>
@@ -58,9 +61,11 @@
             It really helps that I just moved flats and want to have a clean room for once  
             with no smoke lingering in the air.
           </p>
+        </div>
         </section>
 
         <section class="entry" id="entry3">
+          <div class="typewriter">
           <h2>DAY #3:</h2>
           <p>
             I haven’t felt the urge so far<br><br>
@@ -71,9 +76,11 @@
             with enough willpower to change their habits 👍<br><br>
             Honestly, the only thing reminding me of smoking weed is this blog anyway 😅
           </p>
+        </div>
         </section>
 
         <section class="entry" id="entry4">
+          <div class="typewriter">
           <h2>DAY #4:</h2>
           <p>
             This sucks man... the misunderstanding from yesterday became so much worse.<br><br>
@@ -85,18 +92,22 @@
             I realised that since I smoke my joints with tobacco, I'm technically quitting TWO 
             things at once (wow). I'm kinda proud of myself for that.
           </p>
+          </div>
         </section>
 
         <section class="entry" id="entry5">
+          <div class="typewriter">
           <h2>DAY #0:</h2>
           <p>
             My washing machine broke today.<br><br>
             I bought two grams of weed.<br><br>
             Back to square one.
           </p>
+          </div>
         </section>
 
         <section class="entry" id="entry6">
+          <div class="typewriter">
           <h2>DAY #1:</h2>
           <p>
             Well... what can I say? I’m human.<br><br>
@@ -104,13 +115,30 @@
             I think this will help me get back on track.<br><br>
             But c’mon man... really? No internet AND no washing machine?  
             WTF am I supposed to do all day? Sit around and watch paint dry?<br><br>
-            Most of my free time IS watching something online, smoking, and washing clothes.<br><br>
+            Most of my free time IS watching something online, smoking, and maybe washing clothes.<br><br>
             I guess at least I don’t need to wash my stuff so often since I'm not smoking...
           </p>
+          </div>
         </section>
     </main>
     <footer>
-      <p>&copy; 2025 D-O-A-S-S. All rights reserved.</p>
+        <div class="footer-nav">
+         
+        <span class="arrow-left" id="prev">&#8592;</span>
+        <span class="day-indicator" id="dayIndicator">Day 1</span>
+        <span class="arrow-right" id="next">&#8594;</span>
+        </div>
+        <div class="accordion"> <details>
+
+          <summary>Introduction</summary>
+            <h5>
+            In my 20s I always used to say “I will quit when I’m 30”.<br> Now, I’m 30 and still as much of a smoker as in my younger years.<br>
+            Since I got used to smoking every day, I can feel how my body is slowly paying the price for it.<br>
+            My nose is permanently stuffed, I have constant sneeze attacks that go on for at least 5 minutes, and when I catch a cold it knocks my lungs out for a week.<br>
+            It’s time for a change.<br>
+            I will write my thoughts and feelings on this website as a reminder to keep the work going and to have something I can hold on to.  
+            </h5>
+        </details></div>
     </footer>
   </body>
 </html>
