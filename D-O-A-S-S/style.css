@@ -15,6 +15,11 @@
   transform 0.6s cubic-bezier(.4,0,.2,1);
   transform: translateY(10px);
 }
+
+.typewriter p {
+  white-space: pre-wrap;
+  font-family: "Special Elite", system-ui;
+}
 .entry.active {
   opacity: 1;
   pointer-events: auto;

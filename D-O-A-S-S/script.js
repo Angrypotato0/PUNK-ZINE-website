@@ -34,7 +34,7 @@ let currentIndex = 0;
 /* ===============================
    TYPEWRITER
 ================================ */
-function typeParagraph(p, speed = 20) {
+function typeParagraph(p, speed = 40) {
   const html = p.dataset.text;
   p.innerHTML = "";
 
@@ -74,7 +74,7 @@ function showEntry(index) {
       const p = entry.querySelector("p");
 
       if (!p.dataset.text) {
-        p.dataset.text = p.innerHTML;
+        p.dataset.text =  p.innerHTML;
       }
 
       p.textContent = "";
