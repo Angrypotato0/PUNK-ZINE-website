@@ -102,7 +102,5 @@ radios.forEach((radio, index) => {
   radio.addEventListener("change", () => showEntry(index));
 });
 
-/* ===============================
-   INIT
-================================ */
+
 showEntry(0);
