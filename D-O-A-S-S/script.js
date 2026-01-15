@@ -34,7 +34,7 @@ let currentIndex = 0;
 /* ===============================
    TYPEWRITER
 ================================ */
-function typeParagraph(p, speed = 40) {
+function typeParagraph(p, speed = 20) {
   const html = p.dataset.text;
   p.innerHTML = "";
 

@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "typewriter_bold";
+  src: url(cmu.typewriter-text-bold.ttf);
+}
+
+
 .entry {
   position: absolute;
   top: 0;
@@ -18,7 +24,8 @@
 
 .typewriter p {
   white-space: pre-wrap;
-  font-family: "Special Elite", system-ui;
+  font-family: "typewriter_bold", monospace;
+  font-size: 1.4em;
 }
 .entry.active {
   opacity: 1;
