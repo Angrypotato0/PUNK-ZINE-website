@@ -1,35 +1,44 @@
 /* ===============================
    RANDOM BACKGROUND
 ================================ */
+const isSubPage = window.location.pathname.includes("/subs/");
+
+const basePath = isSubPage ? "../source/" : "source/";
+
 const images = [
-  "source/marjan-blan-_kUxT8WkoeY-unsplash.jpg",
-  "source/marjan-blan-_kUxT8WkoeY-unsplash(1).jpg",
-  "source/marjan-blan--Vc-ok8CeBU-unsplash.jpg",
-  "source/marjan-blan-5Ft4NWTmeJE-unsplash.jpg",
-  "source/marjan-blan-5Ft4NWTmeJE-unsplash(1).jpg",
-  "source/marjan-blan-6CeiUegNFiE-unsplash.jpg",
-  "source/marjan-blan-40M5j2ygjnw-unsplash.jpg",
-  "source/marjan-blan-794QUz5-cso-unsplash.jpg",
-  "source/marjan-blan-ADfPdLBMeY8-unsplash.jpg",
-  "source/marjan-blan-GOP07ZOjBEU-unsplash.jpg",
-  "source/marjan-blan-qqz06qPB_F0-unsplash.jpg",
-];
+  "marjan-blan-_kUxT8WkoeY-unsplash.jpg",
+  "marjan-blan-_kUxT8WkoeY-unsplash(1).jpg",
+  "marjan-blan--Vc-ok8CeBU-unsplash.jpg",
+  "marjan-blan-5Ft4NWTmeJE-unsplash.jpg",
+  "marjan-blan-5Ft4NWTmeJE-unsplash(1).jpg",
+  "marjan-blan-6CeiUegNFiE-unsplash.jpg",
+  "marjan-blan-40M5j2ygjnw-unsplash.jpg",
+  "marjan-blan-794QUz5-cso-unsplash.jpg",
+  "marjan-blan-ADfPdLBMeY8-unsplash.jpg",
+  "marjan-blan-GOP07ZOjBEU-unsplash.jpg",
+  "marjan-blan-qqz06qPB_F0-unsplash.jpg",
+].map(img => basePath + img);
 
 document.body.style.backgroundImage =
   `url("${images[Math.floor(Math.random() * images.length)]}")`;
 document.body.style.backgroundSize = "cover";
 document.body.style.backgroundPosition = "center";
-
 /* ===============================
    ENTRY LOGIC
 ================================ */
 const entries = document.querySelectorAll(".entry");
-const radios = document.querySelectorAll('input[name="entry"]');
-const prevBtn = document.getElementById("prev");
-const nextBtn = document.getElementById("next");
-const dayIndicator = document.getElementById("dayIndicator");
+const isMainPage = entries.length > 0;
 
 let currentIndex = 0;
+
+let radios, prevBtn, nextBtn, dayIndicator;
+
+if (isMainPage) {
+  radios = document.querySelectorAll('input[name="entry"]');
+  prevBtn = document.getElementById("prev");
+  nextBtn = document.getElementById("next");
+  dayIndicator = document.getElementById("dayIndicator");
+}
 
 /* ===============================
    TYPEWRITER
@@ -90,17 +99,51 @@ function showEntry(index) {
 /* ===============================
    NAVIGATION
 ================================ */
-prevBtn.addEventListener("click", () => {
-  if (currentIndex > 0) showEntry(currentIndex - 1);
+if (isMainPage) {
+  prevBtn.addEventListener("click", () => {
+    if (currentIndex > 0) showEntry(currentIndex - 1);
+  });
+
+  nextBtn.addEventListener("click", () => {
+    if (currentIndex < entries.length - 1) showEntry(currentIndex + 1);
+  });
+
+  radios.forEach((radio, index) => {
+    radio.addEventListener("change", () => showEntry(index));
+  });
+
+  showEntry(0);
+}
+
+/* ===============================
+   KEYBOARD NAVIGATION
+================================ */
+document.addEventListener("keydown", (e) => {
+  // prevent interfering with inputs
+  if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+
+  if (e.key === "ArrowLeft") {
+    if (currentIndex > 0) {
+      showEntry(currentIndex - 1);
+    }
+  }
+
+  if (e.key === "ArrowRight") {
+    if (currentIndex < entries.length - 1) {
+      showEntry(currentIndex + 1);
+    }
+  }
 });
 
-nextBtn.addEventListener("click", () => {
-  if (currentIndex < entries.length - 1) showEntry(currentIndex + 1);
+/* ===============================
+   REMEMBER ENTRY LOGIN
+================================ */
+window.addEventListener("load", () => {
+  const hash = window.location.hash.replace("#", "");
+  if (hash) {
+    const index = [...entries].findIndex(e => e.id === hash);
+    if (index !== -1) {
+      showEntry(index);
+    }
+  }
 });
-
-radios.forEach((radio, index) => {
-  radio.addEventListener("change", () => showEntry(index));
-});
-
-
-showEntry(0);

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>The Washing Machine</title>
+  <link rel="stylesheet" href="../style.css" />
+  <script src="../script.js" defer></script>
+</head>
+<body>
+
+<main>
+  <section class="entry active">
+    <div class="typewriter">
+      <h2>The Washing Machine</h2>
+
+      <p>
+        You remember the guy’s apartment. No furniture. No warmth.
+        Just empty rooms and a machine that screamed like it was alive...
+      </p>
+
+      <br />
+
+      <a id="backLink">← Return to story</a>
+    </div>
+  </section>
+</main>
+
+<script>
+  const params = new URLSearchParams(window.location.search);
+  const from = params.get("from");
+
+  const backLink = document.getElementById("backLink");
+
+  if (from) {
+    backLink.href = `../index.html#${from}`;
+  } else {
+    backLink.href = "../index.html";
+  }
+</script>
+
+</body>
+</html>
