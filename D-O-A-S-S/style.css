@@ -15,6 +15,19 @@
   transform: none; 
 }
 
+.typewriter span {
+  opacity: 0;
+  display: inline-block; /* allows transform and spacing */
+  transition: opacity 0.4s ease-in, transform 0.4s ease-in;
+  transform: translateY(5px);
+}
+
+.typewriter span.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+
 .typewriter h2 {
   opacity: 0;
   transition:opacity 0.6s cubic-bezier(.4,0,.2,1),
@@ -23,6 +36,7 @@
 }
 
 .typewriter p {
+ 
   white-space: pre-wrap;
   font-family: "typewriter_bold", monospace;
   font-size: 1.4em;
@@ -143,6 +157,12 @@ p {
 
 .topnav a:hover {
   border-bottom: 2px solid #1a1a1a;
+}
+
+.vertical-text {
+  writing-mode: vertical-rl; 
+  text-orientation: upright; 
+  white-space: pre-wrap;     
 }
 
 
