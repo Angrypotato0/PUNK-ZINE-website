@@ -5,6 +5,7 @@
 
 
 .entry {
+  border: #1a1a1a;
   position: absolute;
   top: 0;
   left: 0;
@@ -16,6 +17,7 @@
 }
 
 .typewriter span {
+  border: #1a1a1a;
   opacity: 0;
   display: inline-block; /* allows transform and spacing */
   transition: opacity 0.4s ease-in, transform 0.4s ease-in;
@@ -23,6 +25,7 @@
 }
 
 .typewriter span.visible {
+  border: #1a1a1a;
   opacity: 1;
   transform: translateY(0);
 }
@@ -36,18 +39,24 @@
 }
 
 .typewriter p {
- 
+
+  border: #1a1a1a;
   white-space: pre-wrap;
   font-family: "typewriter_bold", monospace;
   font-size: 1.4em;
 }
 .entry.active {
+  border: #1a1a1a;
   opacity: 1;
   pointer-events: auto;
 }
 
 .entry.active h2 {
+  font-family: "Major Mono Display", monospace;
   opacity: 1;
+}
+.entry.active .typewriter p {
+  border: #1a1a1a;
 }
 
 #day1:checked ~ main #entry1 .typewriter h2,
@@ -83,6 +92,8 @@ body:has(a[data-target="entry7"]:hover) #entry7 {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    /*outline: 1px dashed rgba(0, 17, 255, 0.4);
+    outline-offset: -1px;*/
 }
 
 .major-mono-display-regular {
@@ -135,7 +146,7 @@ p {
     text-align: auto;
     margin: 1em auto;
     font-size: 1.25em;
-    max-width: 1000px;        
+    max-width: auto;        
     padding: 0 20px; 
 }
 
@@ -245,6 +256,8 @@ input[type="radio"] {
   backdrop-filter: blur(5px);
   background: rgba(245, 245, 245, 0.0);
   border-radius: 10px;
+  pointer-events: auto;
+  z-index: 1001;
 }
 
 .arrow-left,
@@ -253,17 +266,140 @@ input[type="radio"] {
   user-select: none;
 }
 
-
 footer {
   position: fixed;
   display: flex;
   bottom: 10px;
   left: 10px;
-  width: 100%;
+  width: auto;
   text-align: left;
   padding: 0 0;
-  backdrop-filter: blur(5px);
-  background: rgba(245, 245, 245, 0.0);
-  border-top: 1px solid #1a1a1a;
+  background: transparent;
+  border-top: none;
+  pointer-events: none;
 }
+
+.accordion {
+  pointer-events: auto;
+}
+
+.accordion details {
+  max-width: 800px;
+}
+
+.accordion details[open] {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 85vw;
+  height: 85vh;
+  background: transparent;
+  border: 2px solid #1a1a1a;
+  border-radius: 10px;
+  padding: 40px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+}
+
+.accordion summary {
+  cursor: pointer;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid rgba(26, 26, 26, 0.3);
+  border-radius: 3px;
+  list-style: none;
+  font-size: 0.85em;
+  display: inline-block;
+  transition: border-color 0.2s ease;
+}
+
+.accordion summary:hover {
+  border-color: rgba(26, 26, 26, 0.6);
+}
+
+.accordion details[open] summary {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  margin-bottom: 20px;
+  font-size: 1.2em;
+}
+
+.accordion h5 {
+  max-width: 100%;
+  font-size: 1.1em;
+  line-height: 1.8;
+  padding: 20px;
+  text-align: center;
+  margin: 0 auto;
+  padding-bottom: 60px;
+}
+
+body.landing {
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
+#matrix-link {
+  text-decoration: none;
+  display: block;
+}
+
+.matrix {
+  width: 40ch;
+  height: 40ch;
+  display: grid;
+  grid-template-columns: repeat(20, 1fr);
+  grid-template-rows: repeat(20, 1fr);
+  font-family: "typewriter_bold", monospace;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: #000000;
+  overflow: visible;
+  position: relative;
+  transition: transform 0.6s ease, filter 0.3s ease, opacity 0.6s ease;
+  background: transparent;
+  padding: 10px;
+}
+
+.matrix span {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matrix span.visible {
+  opacity: 0.15;
+}
+
+.matrix span.active {
+  opacity: 0.85;
+  font-weight: bold;
+}
+
+.matrix span.center {
+  opacity: 1;
+  font-weight: bold;
+}
+
+.matrix.fade-out {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.matrix:hover {
+  border-color: rgba(0, 0, 0, 0.4);
+}
+
+
 

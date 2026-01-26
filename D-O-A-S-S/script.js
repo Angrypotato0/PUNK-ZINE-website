@@ -356,13 +356,108 @@ if (!isMainPage) {
         typeByLine(p);
         break;
       case "row":
-        typeRowLetters(p);
+        typeRowLetters(p,50);
         break;
       case "letterPerRow":
         typeByLetterPerRow(p);
         break;
       default:
-        typeByLetter(p);
+        typeByLetter(p,1);
     }
   });
 }
+
+function typeMatrix(container, rows = 20, cols = 20) {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const total = rows * cols;
+  container.innerHTML = "";
+  
+  // Build grid
+  for (let i = 0; i < total; i++) {
+    const span = document.createElement("span");
+    span.textContent = chars[Math.floor(Math.random() * chars.length)];
+    container.appendChild(span);
+  }
+  
+  const spans = [...container.children];
+  
+  // Fade in all characters gradually
+  spans.forEach((span, i) => {
+    setTimeout(() => span.classList.add("visible"), i * 3);
+  });
+  
+  // MINIMALIST RAIN DROPS
+  const drops = Array(cols).fill(0).map(() => Math.floor(Math.random() * rows));
+  
+  function rain() {
+    // Clear previous active states
+    spans.forEach(s => s.classList.remove("active"));
+    
+    for (let col = 0; col < cols; col++) {
+      const row = drops[col];
+      const index = row * cols + col;
+      
+      if (index >= 0 && index < spans.length) {
+        // Update character
+        if (Math.random() > 0.7) {
+          spans[index].textContent = chars[Math.floor(Math.random() * chars.length)];
+        }
+        
+        // Mark as active (brighter)
+        spans[index].classList.add("active");
+      }
+      
+      drops[col]++;
+      if (drops[col] >= rows) {
+        drops[col] = 0;
+      }
+    }
+  }
+  
+  const rainInterval = setInterval(rain, 80);
+  
+  // ENTER word positions
+  const word = "ENTER";
+  const centerRow = Math.floor((rows / 2)-1);
+  const startCol = Math.floor((cols - word.length) / 2);
+  const enterIndices = word.split("").map((char, i) => centerRow * cols + startCol + i);
+  
+  // Reveal ENTER on hover
+  container.addEventListener("mouseenter", () => {
+    word.split("").forEach((char, i) => {
+      const idx = enterIndices[i];
+      spans[idx].textContent = char;
+      spans[idx].classList.add("center");
+      spans[idx].classList.remove("visible", "active");
+    });
+  });
+  
+  // Hide ENTER on mouse leave (optional)
+  container.addEventListener("mouseleave", () => {
+    enterIndices.forEach(idx => {
+      spans[idx].textContent = chars[Math.floor(Math.random() * chars.length)];
+      spans[idx].classList.remove("center");
+      spans[idx].classList.add("visible");
+    });
+  });
+  
+  // Cleanup on click
+  const link = container.closest("a");
+  if (link) {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      clearInterval(rainInterval);
+      container.classList.add("fade-out");
+      setTimeout(() => {
+        window.location.href = link.href;
+      }, 600);
+    });
+  }
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const matrix = document.getElementById("matrix");
+  if (matrix) {
+    typeMatrix(matrix, 20, 20);
+  }
+});
