@@ -39,11 +39,17 @@
 }
 
 .typewriter p {
+  margin: 0px 300px;
+  
+  outline: 1px dashed rgba(0, 17, 255, 0.4);
+  outline-offset: -1px;
 
   border: #1a1a1a;
+  font-weight: 0;
   white-space: pre-wrap;
   font-family: "typewriter_bold", monospace;
-  font-size: 1.4em;
+  font-size: 1.5em;
+  padding: auto;
 }
 .entry.active {
   border: #1a1a1a;
@@ -55,9 +61,9 @@
   font-family: "Major Mono Display", monospace;
   opacity: 1;
 }
-.entry.active .typewriter p {
-  border: #1a1a1a;
-}
+
+
+
 
 #day1:checked ~ main #entry1 .typewriter h2,
 #day2:checked ~ main #entry2 .typewriter h2,
@@ -312,7 +318,7 @@ footer {
   border: 1px solid rgba(26, 26, 26, 0.3);
   border-radius: 3px;
   list-style: none;
-  font-size: 0.85em;
+  font-size: 0.95em;
   display: inline-block;
   transition: border-color 0.2s ease;
 }
@@ -326,7 +332,7 @@ footer {
   top: 0;
   z-index: 10;
   margin-bottom: 20px;
-  font-size: 1.2em;
+  font-size: 1.1em;
 }
 
 .accordion h5 {
@@ -334,7 +340,7 @@ footer {
   font-size: 1.1em;
   line-height: 1.8;
   padding: 20px;
-  text-align: center;
+  
   margin: 0 auto;
   padding-bottom: 60px;
 }

@@ -40,10 +40,142 @@ if (isMainPage) {
   dayIndicator = document.getElementById("dayIndicator");
 }
 
+/* ===============================
+   SHOW ENTRY
+================================ */
+function showEntry(index) {
+  if (index < 0 || index >= entries.length) return;
+
+  entries.forEach((entry, i) => {
+    entry.classList.toggle("active", i === index);
+
+    if (i === index) {
+      const p = entry.querySelector("p");
+      if (!p.dataset.text) p.dataset.text = p.innerHTML;
+      p.innerHTML = "";
+
+      switch (entry.dataset.type) {
+        case "word":
+          typeByWord(p);
+          break;
+        case "line":
+          typeByLine(p);
+          break;
+        case "row":
+          typeRowLetters(p);
+          break;
+        case "letterPerRow":
+          typeByLetterPerRow(p);
+          break;
+        default:
+          typeByLetter(p);
+      }
+    }
+  });
+
+  currentIndex = index;
+  if (dayIndicator) dayIndicator.textContent = `Day ${index + 1}`;
+  if (radios) radios[index].checked = true;
+
+  // remember last read entry
+  localStorage.setItem("lastEntryIndex", index);
+
+  // update subpage links
+  updateSubLinks();
+}
+
+function updateSubLinks() {
+  const activeEntry = entries[currentIndex];
+  if (!activeEntry) return;
+  const entryId = activeEntry.id;
+
+  const links = activeEntry.querySelectorAll('a[href^="subs/"]');
+  links.forEach(link => {
+    const url = new URL(link.getAttribute("href"), window.location.origin);
+    url.searchParams.set("from", entryId);
+    link.setAttribute("href", url.pathname + url.search);
+  });
+}
+
 
 /* ===============================
-   TYPEWRITER FUNCTIONS
+   NAVIGATION
 ================================ */
+if (isMainPage) {
+  prevBtn.addEventListener("click", () => showEntry(Math.max(currentIndex - 1, 0)));
+  nextBtn.addEventListener("click", () => showEntry(Math.min(currentIndex + 1, entries.length - 1)));
+
+  radios.forEach((radio, index) => radio.addEventListener("change", () => showEntry(index)));
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const hash = window.location.hash.replace("#", "");
+    let startIndex = 0;
+
+    if (hash) {
+      const hashIndex = [...entries].findIndex(e => e.id === hash);
+      if (hashIndex !== -1) startIndex = hashIndex;
+    } else {
+      const savedIndex = localStorage.getItem("lastEntryIndex");
+      if (savedIndex !== null) startIndex = parseInt(savedIndex, 10);
+    }
+
+    showEntry(startIndex);
+  });
+}
+
+/* ===============================
+   KEYBOARD NAVIGATION
+================================ */
+if (isMainPage) {
+  document.addEventListener("keydown", e => {
+    if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
+
+    if (e.key === "ArrowLeft") showEntry(Math.max(currentIndex - 1, 0));
+    if (e.key === "ArrowRight") showEntry(Math.min(currentIndex + 1, entries.length - 1));
+  });
+}
+
+/* ===============================
+   AUTO TYPEWRITER FOR SUB PAGES
+================================ */
+if (!isMainPage) {
+  document.addEventListener("DOMContentLoaded", () => {
+    const entry = document.querySelector(".entry");
+    if (!entry) return;
+
+    const p = entry.querySelector("p");
+    if (!p) return;
+
+    if (!p.dataset.text) p.dataset.text = p.innerHTML;
+    p.innerHTML = "";
+
+    switch (entry.dataset.type) {
+      case "word":
+        typeByWord(p);
+        break;
+      case "line":
+        typeByLine(p);
+        break;
+      case "row":
+        typeRowLetters(p,50);
+        break;
+      case "letterPerRow":
+        typeByLetterPerRow(p);
+        break;
+      default:
+        typeByLetter(p,1);
+    }
+  });
+}
+
+
+
+
+
+
+/* =============================================================================================
+   TYPEWRITER FUNCTIONS
+================================================================================================ */
 function typeByLetter(p, speed = 20) {
   const html = p.dataset.text;
   p.innerHTML = "";
@@ -184,7 +316,7 @@ function typeByWord(p, speed = 100) {
   typeNode();
 }
 
-function typeByLine(p, speed = 500) {
+function typeByLine(p, speed = 100) {
   const html = p.dataset.text.trim();
   const lines = html.replace(/<br\s*\/?>/gi, "\n").split("\n").map(l => l.trim()).filter(l => l !== "");
   p.innerHTML = "";
@@ -214,7 +346,7 @@ function typeRowLetters(p, speed = 500) {
   type();
 }
 
-function typeByLetterPerRow(p, speed = 20) {
+function typeByLetterPerRow(p, speed = 1) {
   const html = p.dataset.text;
   const rows = html.split(/\n|<br\s*\/?>/);
   p.innerHTML = "";
@@ -239,133 +371,12 @@ function typeByLetterPerRow(p, speed = 20) {
 }
 
 
-/* ===============================
-   SHOW ENTRY
-================================ */
-function showEntry(index) {
-  if (index < 0 || index >= entries.length) return;
 
-  entries.forEach((entry, i) => {
-    entry.classList.toggle("active", i === index);
-
-    if (i === index) {
-      const p = entry.querySelector("p");
-      if (!p.dataset.text) p.dataset.text = p.innerHTML;
-      p.innerHTML = "";
-
-      switch (entry.dataset.type) {
-        case "word":
-          typeByWord(p);
-          break;
-        case "line":
-          typeByLine(p);
-          break;
-        case "row":
-          typeRowLetters(p);
-          break;
-        case "letterPerRow":
-          typeByLetterPerRow(p);
-          break;
-        default:
-          typeByLetter(p);
-      }
-    }
-  });
-
-  currentIndex = index;
-  if (dayIndicator) dayIndicator.textContent = `Day ${index + 1}`;
-  if (radios) radios[index].checked = true;
-
-  // remember last read entry
-  localStorage.setItem("lastEntryIndex", index);
-
-  // update subpage links
-  updateSubLinks();
-}
-
-function updateSubLinks() {
-  const activeEntry = entries[currentIndex];
-  if (!activeEntry) return;
-  const entryId = activeEntry.id;
-
-  const links = activeEntry.querySelectorAll('a[href^="subs/"]');
-  links.forEach(link => {
-    const url = new URL(link.getAttribute("href"), window.location.origin);
-    url.searchParams.set("from", entryId);
-    link.setAttribute("href", url.pathname + url.search);
-  });
-}
+/* ===========================================================================================================================================================
+   LANDING PAGE LOGIC
+============================================================================================================================================================== */
 
 
-/* ===============================
-   NAVIGATION
-================================ */
-if (isMainPage) {
-  prevBtn.addEventListener("click", () => showEntry(Math.max(currentIndex - 1, 0)));
-  nextBtn.addEventListener("click", () => showEntry(Math.min(currentIndex + 1, entries.length - 1)));
-
-  radios.forEach((radio, index) => radio.addEventListener("change", () => showEntry(index)));
-
-  document.addEventListener("DOMContentLoaded", () => {
-    const hash = window.location.hash.replace("#", "");
-    let startIndex = 0;
-
-    if (hash) {
-      const hashIndex = [...entries].findIndex(e => e.id === hash);
-      if (hashIndex !== -1) startIndex = hashIndex;
-    } else {
-      const savedIndex = localStorage.getItem("lastEntryIndex");
-      if (savedIndex !== null) startIndex = parseInt(savedIndex, 10);
-    }
-
-    showEntry(startIndex);
-  });
-}
-
-/* ===============================
-   KEYBOARD NAVIGATION
-================================ */
-if (isMainPage) {
-  document.addEventListener("keydown", e => {
-    if (["INPUT", "TEXTAREA"].includes(document.activeElement.tagName)) return;
-
-    if (e.key === "ArrowLeft") showEntry(Math.max(currentIndex - 1, 0));
-    if (e.key === "ArrowRight") showEntry(Math.min(currentIndex + 1, entries.length - 1));
-  });
-}
-
-/* ===============================
-   AUTO TYPEWRITER FOR SUB PAGES
-================================ */
-if (!isMainPage) {
-  document.addEventListener("DOMContentLoaded", () => {
-    const entry = document.querySelector(".entry");
-    if (!entry) return;
-
-    const p = entry.querySelector("p");
-    if (!p) return;
-
-    if (!p.dataset.text) p.dataset.text = p.innerHTML;
-    p.innerHTML = "";
-
-    switch (entry.dataset.type) {
-      case "word":
-        typeByWord(p);
-        break;
-      case "line":
-        typeByLine(p);
-        break;
-      case "row":
-        typeRowLetters(p,50);
-        break;
-      case "letterPerRow":
-        typeByLetterPerRow(p);
-        break;
-      default:
-        typeByLetter(p,1);
-    }
-  });
-}
 
 function typeMatrix(container, rows = 20, cols = 20) {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
