@@ -31,13 +31,28 @@ const entries = document.querySelectorAll(".entry");
 const isMainPage = document.querySelector('input[name="entry"]') !== null;
 
 let currentIndex = 0;
-let radios, prevBtn, nextBtn, dayIndicator;
+let radios, prevBtn, nextBtn, dayIndicator, navLinks;
 
 if (isMainPage) {
   radios = document.querySelectorAll('input[name="entry"]');
   prevBtn = document.getElementById("prev");
   nextBtn = document.getElementById("next");
   dayIndicator = document.getElementById("dayIndicator");
+  navLinks = document.querySelectorAll('.topnav a[data-target]');
+}
+/* ===============================
+   UPDATE NAVIGATION ACTIVE STATE
+================================ */
+function updateNavigation(index) {
+  if (!navLinks) return;
+  
+  navLinks.forEach((link, i) => {
+    if (i === index) {
+      link.classList.add("active");
+    } else {
+      link.classList.remove("active");
+    }
+  });
 }
 
 /* ===============================
@@ -77,6 +92,8 @@ function showEntry(index) {
   if (dayIndicator) dayIndicator.textContent = `Day ${index + 1}`;
   if (radios) radios[index].checked = true;
 
+  updateNavigation(index);
+
   // remember last read entry
   localStorage.setItem("lastEntryIndex", index);
 
@@ -106,6 +123,14 @@ if (isMainPage) {
   nextBtn.addEventListener("click", () => showEntry(Math.min(currentIndex + 1, entries.length - 1)));
 
   radios.forEach((radio, index) => radio.addEventListener("change", () => showEntry(index)));
+
+  // Add click handlers to navigation links  // NEW SECTION
+  navLinks.forEach((link, index) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      showEntry(index);
+    });
+  });
 
   document.addEventListener("DOMContentLoaded", () => {
     const hash = window.location.hash.replace("#", "");
@@ -157,7 +182,7 @@ if (!isMainPage) {
         typeByLine(p);
         break;
       case "row":
-        typeRowLetters(p,50);
+        typeRowLetters(p,10);
         break;
       case "letterPerRow":
         typeByLetterPerRow(p);
