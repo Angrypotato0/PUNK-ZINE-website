@@ -6,16 +6,14 @@ const basePath = isSubPage ? "../source/" : "source/";
 
 const images = [
   "marjan-blan-_kUxT8WkoeY-unsplash.jpg",
-  "marjan-blan-_kUxT8WkoeY-unsplash(1).jpg",
-  "marjan-blan--Vc-ok8CeBU-unsplash.jpg",
-  "marjan-blan-5Ft4NWTmeJE-unsplash.jpg",
   "marjan-blan-5Ft4NWTmeJE-unsplash(1).jpg",
-  "marjan-blan-6CeiUegNFiE-unsplash.jpg",
   "marjan-blan-40M5j2ygjnw-unsplash.jpg",
   "marjan-blan-794QUz5-cso-unsplash.jpg",
   "marjan-blan-ADfPdLBMeY8-unsplash.jpg",
   "marjan-blan-GOP07ZOjBEU-unsplash.jpg",
   "marjan-blan-qqz06qPB_F0-unsplash.jpg",
+  "marjan-blan--Vc-ok8CeBU-unsplash.jpg"
+
 ].map(img => basePath + img);
 
 document.body.style.backgroundImage =
