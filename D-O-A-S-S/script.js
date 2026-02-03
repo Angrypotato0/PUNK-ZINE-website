@@ -38,6 +38,14 @@ if (isMainPage) {
   dayIndicator = document.getElementById("dayIndicator");
   navLinks = document.querySelectorAll('.topnav a[data-target]');
 }
+if (isMainPage && navLinks) {
+  navLinks.forEach((link, index) => {
+    link.addEventListener("click", () => {
+      showEntry(index);
+    });
+  });
+}
+
 /* ===============================
    UPDATE NAVIGATION ACTIVE STATE
 ================================ */
@@ -114,30 +122,45 @@ function updateSubLinks() {
 
 
 /* ===============================
-   NAVIGATION
+   NAVIGATION + STARTUP
 ================================ */
 if (isMainPage) {
   prevBtn.addEventListener("click", () => showEntry(Math.max(currentIndex - 1, 0)));
   nextBtn.addEventListener("click", () => showEntry(Math.min(currentIndex + 1, entries.length - 1)));
 
-  radios.forEach((radio, index) => radio.addEventListener("change", () => showEntry(index)));
-
-  // Add click handlers to navigation links  // NEW SECTION
-  navLinks.forEach((link, index) => {
-    link.addEventListener("click", (e) => {
-      e.preventDefault();
-      showEntry(index);
-    });
+  radios.forEach((radio, index) => {
+    radio.addEventListener("change", () => showEntry(index));
   });
 
   document.addEventListener("DOMContentLoaded", () => {
-    const hash = window.location.hash.replace("#", "");
+    const params = new URLSearchParams(window.location.search);
+    const fromSub = params.get("from");
+
+    const cameFromLanding = params.get("fromLanding") === "true";
+
+    const intro = document.getElementById("introBox");
+
+        if (intro) {
+          if (cameFromLanding) {
+            intro.open = true;
+          } else {
+            intro.open = false;
+          }
+        }
+
+
+
     let startIndex = 0;
 
-    if (hash) {
-      const hashIndex = [...entries].findIndex(e => e.id === hash);
+    if (fromSub) {
+      const hashIndex = [...entries].findIndex(e => e.id === fromSub);
       if (hashIndex !== -1) startIndex = hashIndex;
-    } else {
+    }
+    else if (cameFromLanding) {
+      startIndex = 0;
+      localStorage.setItem("lastEntryIndex", 0);
+    }
+    else {
       const savedIndex = localStorage.getItem("lastEntryIndex");
       if (savedIndex !== null) startIndex = parseInt(savedIndex, 10);
     }
@@ -145,6 +168,7 @@ if (isMainPage) {
     showEntry(startIndex);
   });
 }
+
 
 /* ===============================
    KEYBOARD NAVIGATION
