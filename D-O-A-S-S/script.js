@@ -199,7 +199,7 @@ if (!isMainPage) {
 /* =============================================================================================
    TYPEWRITER FUNCTIONS
 ================================================================================================ */
-function typeByLetter(p, speed = 20) {
+function typeByLetter(p, speed = 25) {
   const html = p.dataset.text;
   p.innerHTML = "";
 
@@ -339,7 +339,7 @@ function typeByWord(p, speed = 100) {
   typeNode();
 }
 
-function typeByLine(p, speed = 100) {
+function typeByLine(p, speed = 700) {
   const html = p.dataset.text.trim();
   const lines = html.replace(/<br\s*\/?>/gi, "\n").split("\n").map(l => l.trim()).filter(l => l !== "");
   p.innerHTML = "";
